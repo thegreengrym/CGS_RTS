@@ -56,8 +56,20 @@ public class UserInput : MonoBehaviour {
 			Camera.mainCamera.orthographicSize = ResourceManager.MinCameraHeight;
 		}
 
+		if(destination.x > ResourceManager.MaxCameraX) {
+			destination.x = ResourceManager.MaxCameraX;
+		} else if(destination.x < (-1*ResourceManager.MaxCameraX)){
+			destination.x = -1*ResourceManager.MaxCameraX;
+		}
+
+		if(destination.y > ResourceManager.MaxCameraY) {
+			destination.y = ResourceManager.MaxCameraY;
+		} else if(destination.y < (-1*ResourceManager.MaxCameraY)){
+			destination.y = -1*ResourceManager.MaxCameraY;
+		}
+
 		if(destination != origin) {
-			Camera.mainCamera.transform.position = Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.ScrollSpeed);
+			Camera.mainCamera.transform.position = Vector3.MoveTowards(origin, destination, Time.deltaTime * ResourceManager.ScrollSpeed * Mathf.Abs(Camera.mainCamera.orthographicSize));
 		}
 	}
 
